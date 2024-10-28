@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کاتالوگ دیجیتال</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="catalog" id="catalog">
+        <div class="page" id="productImageContainer">
+            <img id="productImage" src="../images/product1.jpg" alt="محصول" />
+        </div>
+        <div class="buttons">
+            <button id="prevButton">قبلی</button>
+            <button id="nextButton">بعدی</button>
+        </div>
+    </div>
+
+    <!-- افکت صوتی ورق زدن -->
+    <audio id="pageTurnSound" src="../sounds/page-turn.mp3"></audio>
+
+    <script>
+        // آرایه‌ای از تصاویر
+        const images = [
+            "../images/product1.jpg",
+            "../images/product2.jpg"
+        ];
+
+        let currentIndex = 0; // ایندکس تصویر فعلی
+
+        const productImage = document.getElementById("productImage");
+        const nextButton = document.getElementById("nextButton");
+        const prevButton = document.getElementById("prevButton");
+        const pageTurnSound = document.getElementById("pageTurnSound");
+        const productImageContainer = document.getElementById("productImageContainer");
+        const catalog = document.getElementById("catalog");
+
+        function changeImage(newIndex) {
+            productImageContainer.classList.add('flip'); // اضافه کردن کلاس انیمیشن
+
+            setTimeout(() => {
+                currentIndex = newIndex;
+                productImage.src = images[currentIndex]; // تغییر تصویر
+                pageTurnSound.play(); // پخش صدای ورق زدن
+                productImageContainer.classList.remove('flip'); // حذف کلاس انیمیشن
+            }, 500); // مدت زمان انیمیشن
+        }
+
+        nextButton.addEventListener("click", () => {
+            const newIndex = (currentIndex + 1) % images.length; // محاسبه ایندکس جدید
+            changeImage(newIndex);
+        });
+
+        prevButton.addEventListener("click", () => {
+            const newIndex = (currentIndex - 1 + images.length) % images.length; // محاسبه ایندکس جدید
+            changeImage(newIndex);
+        });
+
+        // مدیریت رویداد کشیدن انگشت
+        let startX;
+        catalog.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX; // ذخیره موقعیت شروع لمس
+        });
+
+        catalog.addEventListener('touchmove', (e) => {
+            const moveX = e.touches[0].clientX; // موقعیت فعلی لمس
+            const diffX = startX - moveX; // محاسبه فاصله
+            if (diffX > 50) { // اگر به سمت چپ کشیده شود
+                const newIndex = (currentIndex + 1) % images.length; // محاسبه ایندکس جدید
+                changeImage(newIndex);
+            } else if (diffX < -50) { // اگر به سمت راست کشیده شود
+                const newIndex = (currentIndex - 1 + images.length) % images.length; // محاسبه ایندکس جدید
+                changeImage(newIndex);
+            }
+        });
+    </script>
+</body>
+</html>
