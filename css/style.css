@@ -1,0 +1,50 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* ارتفاع صفحه */
+    margin: 0; /* حذف حاشیه */
+    background-color: #f9f9f9; /* رنگ پس‌زمینه */
+}
+
+.catalog {
+    text-align: center; /* مرکز چینش متن */
+    touch-action: pan-y; /* جلوگیری از حرکت عمودی هنگام کشیدن */
+}
+
+.page {
+    perspective: 1000px; /* عمق برای افکت ورق زدن */
+}
+
+.catalog img {
+    width: 80%; /* اندازه تصویر */
+    height: auto; /* حفظ نسبت تصویر */
+    border: 2px solid #ddd; /* حاشیه دور تصویر */
+    border-radius: 8px; /* گوشه‌های نرم */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* سایه ملایم */
+    transition: transform 0.5s; /* انیمیشن تبدیل */
+}
+
+.flip {
+    transform: rotateY(180deg); /* افکت ورق زدن */
+}
+
+.buttons {
+    margin-top: 20px; /* فاصله بین تصویر و دکمه‌ها */
+}
+
+button {
+    padding: 10px 20px; /* فاصله داخلی دکمه */
+    font-size: 16px; /* اندازه فونت دکمه */
+    cursor: pointer; /* تغییر نشانگر ماوس */
+    border: none; /* حذف حاشیه */
+    border-radius: 5px; /* گوشه‌های نرم دکمه */
+    background-color: #3498db; /* رنگ پس‌زمینه دکمه */
+    color: white; /* رنگ متن دکمه */
+    transition: background-color 0.3s; /* انیمیشن تغییر رنگ */
+    margin: 0 10px; /* فاصله بین دکمه‌ها */
+}
+
+button:hover {
+    background-color: #2980b9; /* رنگ جدید هنگام هاور */
+}
